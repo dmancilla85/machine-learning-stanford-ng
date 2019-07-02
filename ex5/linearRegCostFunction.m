@@ -19,19 +19,22 @@ grad = zeros(size(theta));
 %               You should set J to the cost and grad to the gradient.
 %
 
+% H0 function
+h0 = X * theta;
 
+% Theta dimension
+lt = length(theta);
 
+% Cost function
+J = 1/(2*m)*(sum((h0 - y).^2) + lambda * sum(theta(2:lt).^2));
 
+% First term of gradient without regularization
+grad = (1/m) * X' * (h0 - y);
 
-
-
-
-
-
-
+% Add regularization term just for theta(1:m)
+grad(2:lt) += (lambda/m)*theta(2:lt);
 
 % =========================================================================
-
 grad = grad(:);
 
 end

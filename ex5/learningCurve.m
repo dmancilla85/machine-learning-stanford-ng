@@ -53,8 +53,18 @@ error_val   = zeros(m, 1);
 
 % ---------------------- Sample Solution ----------------------
 
+[theta] = trainLinearReg(X,y, lambda);
+[theta_cv] = trainLinearReg(Xval,yval, lambda);
 
-
+for i = 1:m
+% Compute train/cross validation errors using training examples 
+	
+	[error_train(i), grad] = linearRegCostFunction([ones(i, 1) X(1:i,:)], y(1:i,:), theta(1:i,:), 0);
+	[error_val(i), grad_cv] = linearRegCostFunction([ones(1, 1) X(i,:)], y(i,:), theta(i,:), 0);
+	
+% X(1:i, :) and y(1:i), storing the result in 
+% error_train(i) and error_val(i)
+end
 
 
 
