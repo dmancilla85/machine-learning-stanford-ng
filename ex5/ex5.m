@@ -40,7 +40,7 @@ xlabel('Change in water level (x)');
 ylabel('Water flowing out of the dam (y)');
 
 fprintf('Program paused. Press enter to continue.\n');
-pause(3);
+pause();
 
 %% =========== Part 2: Regularized Linear Regression Cost =============
 %  You should now implement the cost function for regularized linear 
@@ -55,7 +55,7 @@ fprintf(['Cost at theta = [1 ; 1]: %f '...
 
 fprintf('Program paused. Press enter to continue.\n');
 
-pause(3);
+pause();
 
 %% =========== Part 3: Regularized Linear Regression Gradient =============
 %  You should now implement the gradient for regularized linear 
@@ -70,7 +70,7 @@ fprintf(['Gradient at theta = [1 ; 1]:  [%f; %f] '...
          grad(1), grad(2));
 
 fprintf('Program paused. Press enter to continue.\n');
-pause(3);
+pause();
 
 
 %% =========== Part 4: Train Linear Regression =============
@@ -95,7 +95,7 @@ plot(X, [ones(m, 1) X]*theta, '--', 'LineWidth', 2)
 hold off;
 
 fprintf('Program paused. Press enter to continue.\n');
-pause(3);
+pause();
 
 
 %% =========== Part 5: Learning Curve for Linear Regression =============
@@ -156,8 +156,6 @@ fprintf('  %f  \n', X_poly(1, :));
 fprintf('\nProgram paused. Press enter to continue.\n');
 pause;
 
-
-
 %% =========== Part 7: Learning Curve for Polynomial Regression =============
 %  Now, you will get to experiment with polynomial regression with multiple
 %  values of lambda. The code below runs polynomial regression with 
@@ -165,7 +163,7 @@ pause;
 %  lambda to see how the fit and learning curve change.
 %
 
-lambda = 0;
+lambda = 1;
 [theta] = trainLinearReg(X_poly, y, lambda);
 
 % Plot training data and fit
