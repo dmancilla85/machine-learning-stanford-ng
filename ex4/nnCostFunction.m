@@ -80,9 +80,12 @@ h = a3;
 % calculte penalty
 p = sum(sum(Theta1(:, 2:end).^2, 2))+sum(sum(Theta2(:, 2:end).^2, 2));
 
-% calculate J
+% calculate J Cost regularized
 J = sum(sum((-Y).*log(h) - (1-Y).*log(1-h), 2))/m + lambda*p/(2*m);
 
+% % -------------------------------------------------------------
+% % Back propagation
+% % -------------------------------------------------------------
 % calculate deltas
 delta3 = a3.-Y;
 delta2 = (delta3*Theta2(:,2:end)).*sigmoidGradient(z2);
@@ -96,69 +99,11 @@ Theta1_reg = Theta1; Theta1_reg(:,1) = 0;
 Theta2_reg = Theta2; Theta2_reg(:,1) = 0;
 p1 = (lambda/m) * Theta1_reg;
 p2 = (lambda/m) * Theta2_reg;
+
+% Unroll gradients
 Theta1_grad = Delta1 / m + p1;
 Theta2_grad = Delta2 / m + p2;
 
-% -------------------------------------------------------------
-% Forward propagation
-% -------------------------------------------------------------
-% REVIEW THIS CODE!
-
-% % Add ones to the X data matrix
-% a1 = [ones(m, 1) X];
-
-% % Calculate z
-% z = a1 * Theta1';
-
-% % Calculate g(z) for layer 2
-% a2 = sigmoid(z);
-% % Add bias +1
-% a2 =[ones(m, 1) a2];
-
-% % Calculate 3rd layer
-% a3 = sigmoid(a2 * Theta2');
-
-% % Convert y to a binary matrix m*K (K labels) 
-% yTable = zeros(num_labels, m);
-
-% for i=1:num_labels,
-    % yTable(i,:) = (y==i);
-% endfor
-
-% % Calculate cost
-% J = (1/m) * sum(sum(-yTable .* log(a3)' - (1-yTable) .* log(1 - a3)'  ));
-
-% % Add regularization term 
-% l_term = (lambda/(2*m)) *(sum(sum(Theta1(:, 2:end).^2, 2)) + sum(sum(Theta2(:,2:end).^2, 2)));
-
-% J += l_term;
-
-% % -------------------------------------------------------------
-% % Back propagation
-% % -------------------------------------------------------------
-
-% % calculate deltas
-% delta3 = a3.-yTable';
-% delta2 = (delta3*Theta2).*sigmoidGradient(a2);
-
-% % accumulate gradients
-% Delta1 = (delta2'*a1);
-% Delta2 = (delta3'*a2);
-	
-% % calculate regularized gradient
-% Theta1_reg = Theta1; 
-% Theta1_reg(:,1) = 0;
-% Theta2_reg = Theta2; 
-% Theta2_reg(:,1) = 0;
-
-% p1 = (lambda/m) * Theta1_reg;
-% p2 = (lambda/m) * Theta2_reg;
-% Theta1_grad = Delta1 / m + p1;
-% Theta2_grad = Delta2 / m + p2;
-
-% =========================================================================
-
-% Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
 
 
